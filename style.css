@@ -1,0 +1,162 @@
+@font-face {
+    font-family: 'VHS Font';
+    src: url('fonts/vhs.ttf') format('truetype');
+}
+
+:root {
+    --bg: #050505;
+    --panel: rgba(20, 20, 20, 0.8);
+    --accent: #ff003c;
+    --text: #fff;
+    --sec: #b0b0b0;
+    --brd: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    background: radial-gradient(circle, #1a050a 0%, var(--bg) 100%);
+    color: var(--text);
+    font-family: 'VHS Font', sans-serif;
+    margin: 0;
+    line-height: 1.6;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(transparent 50%, rgba(0,0,0,.15) 50%) 0 0/100% 4px;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.banner {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--brd);
+    box-shadow: 0 20px 40px #000;
+}
+
+h1 {
+    font: 400 clamp(2rem, 6vw, 4.5rem) 'VHS Font', sans-serif;
+    margin: 25px 0 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.author { color: var(--accent); font-weight: bold; margin: 0; }
+
+.store-layout { display: flex; flex-direction: column; gap: 30px; }
+
+.scroll-box {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.scroll-box img {
+    width: 350px;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--brd);
+    transition: .3s;
+    filter: brightness(0.7) grayscale();
+}
+
+.scroll-box img:hover {
+    filter: brightness(1);
+    border-color: var(--accent);
+    transform: translateY(-5px);
+}
+
+.description {
+    margin-top: 30px;
+}
+
+.description, .sidebar-card {
+    background: var(--panel);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--brd);
+}
+
+.description h2 {
+    font-family: 'VHS Font';
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.features-list { list-style: none; padding: 0; }
+.features-list li { margin-bottom: 20px; padding-left: 15px; border-left: 3px solid var(--accent); }
+.features-list strong { display: block; }
+.features-list span { color: var(--sec); font-size: .95rem; }
+
+.sidebar-card { position: sticky; top: 20px; backdrop-filter: blur(15px); }
+
+.status-tag {
+    background: rgba(255,255,255,.1);
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: .75rem;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.price { display: block; margin-bottom: 25px; }
+
+.btn-download {
+    display: block;
+    background: var(--accent);
+    color: #fff;
+    text-align: center;
+    padding: 18px;
+    text-decoration: none;
+    font-family: 'VHS Font';
+    border-radius: 6px;
+    transition: .3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-download:hover { box-shadow: 0 0 30px rgba(255,0,60,.4); transform: scale(1.03); }
+
+.meta-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    font-size: .9rem;
+}
+
+.meta-item span:first-child { color: var(--sec); }
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--panel);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff4d6f;
+}
