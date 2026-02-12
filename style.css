@@ -5,7 +5,7 @@
 
 :root {
     --bg: #050505;
-    --panel: rgba(20, 20, 20, 0.8);
+    --panel: rgba(0, 0, 0, 0.1);
     --accent: #ff003c;
     --text: #fff;
     --sec: #b0b0b0;
@@ -13,20 +13,40 @@
 }
 
 body {
-    background: radial-gradient(circle, #1a050a 0%, var(--bg) 100%);
+    background-color: var(--bg);
     color: var(--text);
     font-family: 'VHS Font', sans-serif;
     margin: 0;
     line-height: 1.6;
 }
 
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px);
+    transform: scale(1.05);
+}
+
+.fh3r-page::before {
+    background-image: url('images/background/wallpaper_fh3r.webp');
+}
+
+.npc-page::before {
+    background-image: url('images/background/wallpaper_npc.png');
+}
+
 body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background: linear-gradient(transparent 50%, rgba(0,0,0,.15) 50%) 0 0/100% 4px;
+    background: linear-gradient(transparent 50%, rgba(0,0,0,.15) 50%) 0 0/100% 4px,
+                radial-gradient(circle, transparent 0%, var(--bg) 100%);
     pointer-events: none;
-    z-index: 1000;
+    z-index: 0;
 }
 
 .container {
@@ -37,23 +57,86 @@ body::after {
     z-index: 10;
 }
 
-.banner {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid var(--brd);
-    box-shadow: 0 20px 40px #000;
-}
-
 h1 {
     font: 400 clamp(2rem, 6vw, 4.5rem) 'VHS Font', sans-serif;
     margin: 25px 0 5px;
     text-transform: uppercase;
     letter-spacing: 2px;
+    text-align: center;
 }
 
-.author { color: var(--accent); font-weight: bold; margin: 0; }
+.author {
+    color: var(--accent);
+    font-weight: bold;
+    text-align: center;
+    margin: 0 0 50px;
+}
+
+.game-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    perspective: 1000px;
+}
+
+.game-links a {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.4s ease;
+    transform-style: preserve-3d;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.game-links a:hover {
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    transition-duration: 0.1s;
+}
+
+.game-links img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+}
+
+.game-links a::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle 360px at var(--glare-x) var(--glare-y), rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 1;
+}
+
+.game-links a:hover::before {
+    opacity: 1;
+}
+
+.game-links a::after {
+    content: attr(data-title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 20px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+    color: #fff;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-20px) translateZ(50px);
+    transition: opacity 0.4s, transform 0.4s;
+    z-index: 2;
+}
+
+.game-links a:hover::after {
+    opacity: 1;
+    transform: translateY(0) translateZ(50px);
+}
 
 .store-layout { display: flex; flex-direction: column; gap: 30px; }
 
@@ -90,10 +173,11 @@ h1 {
     padding: 30px;
     border-radius: 12px;
     border: 1px solid var(--brd);
+    backdrop-filter: blur(15px);
 }
 
 .description h2 {
-    font-family: 'VHS Font';
+    font-family: 'VHS Font', sans-serif;
     color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -104,7 +188,7 @@ h1 {
 .features-list strong { display: block; }
 .features-list span { color: var(--sec); font-size: .95rem; }
 
-.sidebar-card { position: sticky; top: 20px; backdrop-filter: blur(15px); }
+.sidebar-card { position: sticky; top: 20px; }
 
 .status-tag {
     background: rgba(255,255,255,.1);
@@ -124,7 +208,7 @@ h1 {
     text-align: center;
     padding: 18px;
     text-decoration: none;
-    font-family: 'VHS Font';
+    font-family: 'VHS Font', sans-serif;
     border-radius: 6px;
     transition: .3s;
     text-transform: uppercase;
