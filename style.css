@@ -83,14 +83,8 @@ h1 {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.4s ease;
     transform-style: preserve-3d;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.game-links a:hover {
-    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-    transition-duration: 0.1s;
 }
 
 .game-links img {
@@ -138,7 +132,11 @@ h1 {
     transform: translateY(0) translateZ(50px);
 }
 
-.store-layout { display: flex; flex-direction: column; gap: 30px; }
+.store-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
 
 .scroll-box {
     display: flex;
@@ -154,14 +152,7 @@ h1 {
     object-fit: cover;
     border-radius: 4px;
     border: 1px solid var(--brd);
-    transition: .3s;
     filter: brightness(0.7) grayscale();
-}
-
-.scroll-box img:hover {
-    filter: brightness(1);
-    border-color: var(--accent);
-    transform: translateY(-5px);
 }
 
 .description {
@@ -176,6 +167,11 @@ h1 {
     backdrop-filter: blur(15px);
 }
 
+.sidebar-card {
+    position: sticky;
+    top: 20px;
+}
+
 .description h2 {
     font-family: 'VHS Font', sans-serif;
     color: var(--accent);
@@ -183,12 +179,25 @@ h1 {
     letter-spacing: 1px;
 }
 
-.features-list { list-style: none; padding: 0; }
-.features-list li { margin-bottom: 20px; padding-left: 15px; border-left: 3px solid var(--accent); }
-.features-list strong { display: block; }
-.features-list span { color: var(--sec); font-size: .95rem; }
+.features-list {
+    list-style: none;
+    padding: 0;
+}
 
-.sidebar-card { position: sticky; top: 20px; }
+.features-list li {
+    margin-bottom: 20px;
+    padding-left: 15px;
+    border-left: 3px solid var(--accent);
+}
+
+.features-list strong {
+    display: block;
+}
+
+.features-list span {
+    color: var(--sec);
+    font-size: .95rem;
+}
 
 .status-tag {
     background: rgba(255,255,255,.1);
@@ -199,7 +208,10 @@ h1 {
     margin-bottom: 15px;
 }
 
-.price { display: block; margin-bottom: 25px; }
+.price {
+    display: block;
+    margin-bottom: 25px;
+}
 
 .btn-download {
     display: block;
@@ -215,7 +227,10 @@ h1 {
     letter-spacing: 1px;
 }
 
-.btn-download:hover { box-shadow: 0 0 30px rgba(255,0,60,.4); transform: scale(1.03); }
+.btn-download:hover {
+    box-shadow: 0 0 30px rgba(255,0,60,.4);
+    transform: scale(1.03);
+}
 
 .meta-item {
     display: flex;
@@ -225,7 +240,9 @@ h1 {
     font-size: .9rem;
 }
 
-.meta-item span:first-child { color: var(--sec); }
+.meta-item span:first-child {
+    color: var(--sec);
+}
 
 ::-webkit-scrollbar {
     width: 8px;
@@ -243,4 +260,21 @@ h1 {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #ff4d6f;
+}
+
+.game-links a {
+    z-index: 1;
+}
+
+.game-links a::after {
+    z-index: 3;
+}
+
+.scroll-box {
+    position: relative;
+}
+
+.scroll-box img {
+    position: relative;
+    transition: box-shadow 0.3s ease;
 }
