@@ -1,97 +1,100 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const bodyClass = document.body.className;
+    // --- Page Transition In ---
+    gsap.to('body', {
+        opacity: 1,
+        duration: 0.5,
+        ease: 'power1.out'
+    });
 
-    if (bodyClass === 'fh3r-page' || bodyClass === 'npc-page') {
-        gsap.from('header h1', {
-            opacity: 0,
-            y: -50,
-            duration: 1,
-            ease: 'power3.out'
-        });
+    // --- Page Transition Out ---
+    document.querySelectorAll('a[href]').forEach(link => {
+        const url = link.getAttribute('href');
+        if (url && url.endsWith('.html')) {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                gsap.to('body', {
+                    opacity: 0,
+                    duration: 0.4,
+                    ease: 'power1.in',
+                    onComplete: () => {
+                        window.location.href = url;
+                    }
+                });
+            });
+        }
+    });
 
-        gsap.from('.scroll-box img', {
+    // --- Text Animation ---
+    const mainTitle = document.querySelector('header h1');
+    if (mainTitle) {
+        const split = new SplitType(mainTitle, { types: 'chars' });
+        gsap.from(split.chars, {
             opacity: 0,
-            x: -50,
-            stagger: 0.1,
-            duration: 0.8,
+            y: -20,
+            skewX: 10,
+            duration: 0.05,
+            stagger: 0.03,
             ease: 'power2.out',
             delay: 0.3
         });
+    }
 
-        gsap.from('.description', {
-            opacity: 0,
-            y: 30,
-            duration: 1,
-            ease: 'power3.out',
-            delay: 0.5
-        });
 
-        gsap.from('.sidebar-card', {
-            opacity: 0,
-            y: 30,
-            duration: 1,
-            ease: 'power3.out',
-            delay: 0.7
-        });
+    const bodyClass = document.body.className;
 
-        gsap.from('.features-list li', {
-            opacity: 0,
-            x: -20,
-            stagger: 0.15,
-            duration: 0.6,
-            ease: 'power2.out',
-            delay: 0.8
-        });
+    if (bodyClass === 'fh3r-page' || bodyClass === 'npc-page') {
+        // --- Game Page Animations ---
+        gsap.from('.scroll-box', { opacity: 0, y: 50, duration: 0.8, ease: 'power2.out', delay: 0.6 });
+        gsap.from('.description', { opacity: 0, y: 30, duration: 1, ease: 'power3.out', delay: 0.8 });
+        gsap.from('.sidebar-card', { opacity: 0, y: 30, duration: 1, ease: 'power3.out', delay: 1.0 });
+        gsap.from('.features-list li', { opacity: 0, x: -20, stagger: 0.1, duration: 0.6, ease: 'power2.out', delay: 1.2 });
 
-        document.querySelectorAll('.scroll-box img').forEach(img => {
-            img.addEventListener('mouseenter', () => {
-                gsap.to(img, {
-                    scale: 1.1,
-                    filter: 'brightness(1) grayscale(0%)',
-                    borderColor: '#ff003c',
-                    boxShadow: '0 10px 20px rgba(255,0,60,0.5)',
-                    zIndex: 10,
-                    duration: 0.3,
+        const scrollBox = document.querySelector('.scroll-box');
+        if (scrollBox) {
+            const scrollImages = scrollBox.querySelectorAll('img');
+            scrollImages.forEach(img => {
+                img.addEventListener('mouseenter', () => {
+                    gsap.to(img, {
+                        scale: 1.05,
+                        filter: 'brightness(1) grayscale(0%)',
+                        zIndex: 10,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                    scrollImages.forEach(other => {
+                        if (other !== img) {
+                            gsap.to(other, {
+                                filter: 'brightness(0.5) grayscale(100%)',
+                                scale: 0.98,
+                                duration: 0.3
+                            });
+                        }
+                    });
+                });
+            });
+
+            scrollBox.addEventListener('mouseleave', () => {
+                gsap.to(scrollImages, {
+                    scale: 1,
+                    filter: 'brightness(0.7) grayscale(100%)',
+                    zIndex: 1,
+                    duration: 0.4,
                     ease: 'power2.out'
                 });
             });
-            img.addEventListener('mouseleave', () => {
-                gsap.to(img, {
-                    scale: 1,
-                    filter: 'brightness(0.7) grayscale(100%)',
-                    borderColor: 'rgba(255,255,255,0.1)',
-                    boxShadow: 'none',
-                    zIndex: 1,
-                    duration: 0.3,
-                    ease: 'power2.in'
-                });
-            });
-        });
-    } else {
-        gsap.from('header h1', {
-            opacity: 0,
-            y: -50,
-            skewX: 5,
-            duration: 1.2,
-            ease: 'power4.out'
-        });
+        }
 
-        gsap.from('.author', {
-            opacity: 0,
-            y: 30,
-            skewX: -2,
-            duration: 1,
-            ease: 'power4.out',
-            delay: 0.2
-        });
+    } else {
+        // --- Main Page Animations ---
+        gsap.from('.author', { opacity: 0, y: 30, skewX: -2, duration: 1, ease: 'power4.out', delay: 0.6 });
 
         gsap.from('.game-links a', {
             opacity: 0,
             y: 50,
             stagger: 0.2,
-            duration: 1.2,
-            ease: 'elastic.out(1, 0.5)',
-            delay: 0.4
+            duration: 1,
+            ease: 'power3.out',
+            delay: 0.8
         });
 
         const cards = document.querySelectorAll('.game-links a');
@@ -102,8 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const y = e.clientY - rect.top;
                 const width = rect.width;
                 const height = rect.height;
-                const rotateX = (y / height - 0.5) * -25;
-                const rotateY = (x / width - 0.5) * 25;
+                const rotateX = (y / height - 0.5) * -20;
+                const rotateY = (x / width - 0.5) * 20;
 
                 gsap.to(card, {
                     rotateX: rotateX,
@@ -121,8 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 gsap.to(card, {
                     rotateX: 0,
                     rotateY: 0,
-                    duration: 0.5,
-                    ease: 'elastic.out(1, 0.3)'
+                    duration: 0.8,
+                    ease: 'power4.out'
                 });
             });
         });

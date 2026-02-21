@@ -6,6 +6,7 @@
     <title>Non-Playable Character</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
 </head>
 <body class="npc-page">
     <div class="container">
@@ -25,22 +26,22 @@
                 </section>
 
                 <article class="description">
-                    <h2>О ПРОЕКТЕ</h2>
-                    <p><strong>Non-Playable Character</strong> — это игра о персонаже, который не является главным героем.</p>
+                    <h2 data-i18n="aboutTitle">О ПРОЕКТЕ</h2>
+                    <p data-i18n="npcDescription"><strong>Non-Playable Character</strong> — это игра о персонаже, который не является главным героем.</p>
 
                     <div class="meta-info">
-                        <div class="meta-item"><span>Разработчик</span><span>ineedmypills</span></div>
-                        <div class="meta-item"><span>Платформа</span><span>PC</span></div>
-                        <div class="meta-item"><span>Дата выхода</span><span>2024</span></div>
-                        <div class="meta-item"><span>Жанр</span><span>Horror</span></div>
+                        <div class="meta-item"><span data-i18n="developer">Разработчик</span><span>ineedmypills</span></div>
+                        <div class="meta-item"><span data-i18n="platform">Платформа</span><span>PC</span></div>
+                        <div class="meta-item"><span data-i18n="releaseDate">Дата выхода</span><span>2024</span></div>
+                        <div class="meta-item"><span data-i18n="genre">Жанр</span><span>Horror</span></div>
                     </div>
                 </article>
             </main>
 
             <aside class="sidebar-card">
-                <div class="status-tag">Доступно сейчас</div>
-                <span class="price">Бесплатно</span>
-                <a href="https://ineedmypills.itch.io/non-playable-character" class="btn-download">ИГРАТЬ</a>
+                <div class="status-tag" data-i18n="statusAvailable">Доступно сейчас</div>
+                <span class="price" data-i18n="priceFree">Бесплатно</span>
+                <a href="https://ineedmypills.itch.io/non-playable-character" class="btn-download" data-i18n="playButton">ИГРАТЬ</a>
             </aside>
         </div>
     </div>
